@@ -10,8 +10,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> with TickerProviderStateMixin {
-  AnimationController patrickController, patrickPasswordController;
-  Animation<double> patrickAnimation, patrickPasswordAnimation;
+  AnimationController patrickController ;
+  Animation<double> patrickAnimation ;
   double angle = 0.0;
   int emailTextLenght = 0;
   bool obscureText = false;
@@ -24,14 +24,10 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
     super.initState();
     patrickController =
         new AnimationController(vsync: this, duration: (Duration(seconds: 2)));
-    patrickPasswordController =
-        new AnimationController(vsync: this, duration: (Duration(seconds: 3)));
+
     patrickAnimation =
         CurvedAnimation(parent: patrickController, curve: Curves.linear);
-    patrickPasswordAnimation = Tween(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(patrickPasswordController);
+
   }
 
   @override
@@ -56,9 +52,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                 ],
                 if (passwordSelected) ...[
                   Expanded(
-                    child: FadeTransition(
-                        opacity: patrickPasswordAnimation,
-                        child: Image.asset(passwordImage)),
+                    child: Image.asset(passwordImage),
                   ),
                 ],
                 Expanded(
@@ -113,15 +107,20 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                             style: TextStyle(color: Colors.white),
                             obscureText: obscureText,
                             onTap: () {
+
                               setState(() {
+
                                 passwordSelected = true;
+
                               });
+
                             },
                             decoration: InputDecoration(
                                 suffixIcon: GestureDetector(
                                     onTap: () {
+
                                       setState(() {
-                                        patrickPasswordController.forward();
+
                                         if (obscureText) {
                                           passwordImage =
                                               'images/patrick_partial.png';
@@ -129,8 +128,10 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                                           passwordImage =
                                               'images/patrick_closed.png';
                                         }
+
                                         obscureText = !obscureText;
                                       });
+
                                     },
                                     child: (obscureText)
                                         ? Icon(
